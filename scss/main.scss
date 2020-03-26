@@ -1,0 +1,152 @@
+$bg-color-dark: #1E2023;
+$bg-color-light: #43454a;
+$fb-highlight: #2aa1c0;
+$fb-highlight-hover: #006f8e;
+$text-color-unfocused: #a6bcca;
+$text-color-focused: #fdffff;
+
+.page-content, .content{
+    background-color: #2F3136!important;
+}
+
+.firebot-profie-container{
+    .profile-bar{
+        display:flex;
+        background-color: $bg-color-dark;
+        border-radius:1em 1em 0em 0em;
+        border-bottom: 3px solid $bg-color-light;
+        padding:1em;
+        margin-bottom:0em;
+        color: $text-color-unfocused;
+        .profile-image{
+            width:25%;
+            a{
+                margin:0;
+                padding:0;
+            }
+            img{
+                max-width:100%;
+                border-radius: 50%;
+            }
+        }
+        .profile-info{
+            width:74%;
+            align-self: flex-end;
+            flex-wrap: wrap;
+            line-height: 3em;
+            
+            .profile-name{
+                width:100%;
+                color: $text-color-focused;
+                font-size: 3em;
+                line-height:1.5em;
+            }
+            .profile-social{
+                width:100%;
+                a{
+                    margin-right: 1em;
+                    text-decoration: none;
+                    text-transform: capitalize;
+                    background-color: $fb-highlight;
+                    padding:.25em 1em;
+                    color:white;
+                    border-radius: 1em;
+                    &:hover, &:active{
+                        background-color: $fb-highlight-hover;
+                    }
+                }
+            }
+        }
+    }
+    .streamer-container{
+        border-radius:1em;
+        .tabs{
+            .horizontal{
+                background-color: $bg-color-dark;
+                display:flex;
+                list-style: none;
+                margin: 0em 0em 2em 0em;
+                padding: 1em 1em 0em 1em;
+                li{
+                    border: 1px solid transparent;
+                    color: $text-color-focused;
+                    padding: 1em 2em;
+                    border-bottom: 3px solid transparent;
+                    text-transform: uppercase;
+                    &:hover{
+                        border-bottom:3px solid $text-color-unfocused;
+                    }
+                    a{
+                        color: $text-color-unfocused;
+                        text-decoration: none;
+                    }
+                }
+                .active{
+                    color: $text-color-focused;
+                    background-color:transparent;
+                    border: 1px solid transparent;
+                    border-bottom:3px solid $text-color-focused;
+                    a{
+                        color: $text-color-focused;
+                    }
+                }
+            }
+            .profile-container{
+                padding: 0em;
+                color: $text-color-focused;
+                ul{
+                    list-style: none;
+                    padding:0;
+                    margin:0;
+                    li{
+                        margin-bottom: .5em;
+                        background-color: $bg-color-light;
+                        border-radius: 3px;
+                        padding: 1em;
+                    }
+                }
+                .search-wrap{
+                    text-align:right;
+                    input{
+                        width: 25%;
+                        background-color: $bg-color-dark;
+                        color: $text-color-unfocused;
+                        float:right;
+                        margin-bottom:1em;
+                        border:none;
+                    }
+                }
+                .pagination{
+                    li{
+                        background-color:transparent;
+                        a{
+                            margin-right: 1em;
+                            text-decoration: none;
+                            text-transform: capitalize;
+                            background-color: $fb-highlight;
+                            padding:.25em 1em;
+                            color:white;
+                            border-radius: 1em;
+                            &:hover, &:active{
+                                background-color: $fb-highlight-hover;
+                            }
+                        }
+                    }
+                }
+
+                .quotes-content{
+                    li{
+                        display:flex;
+                        flex-wrap: wrap;
+                        div{
+                            padding: 0em .25em 0em 0em;
+                            &.id, &.text{
+                                width:100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
