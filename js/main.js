@@ -3,41 +3,6 @@ function setHeader(xhr) {
     xhr.setRequestHeader('Client-ID', '8682f64ae59cbcba5cd701c205b54b04a424b46ca064e563');
 }
 
-// Lookup channel and parse data into variables
-function channelLookup(username){   
-    $.ajax({
-        url: "https://Mixer.com/api/v1/channels/" + username,
-        type: 'GET',
-        dataType: 'json',
-        beforeSend: setHeader,
-        success: function(data){
-            // User Info
-            let uUsername = data.user.username;
-            let uSocial = data.user.social;
-            let uAvatarURL = data.user.avatarUrl;
-
-            // Avatar
-            $('.profile-image img').attr('src',uAvatarURL);
-            $('.profile-image a').attr('href', "https://mixer.com/" + uUsername);
-            $('.cLink').attr('href', 'https://mixer.com/' + uUsername); 
-            $('.profile-name').text(uUsername);
-            
-            // Social Media
-            $.each(uSocial, function(k,v){
-                if(k !== "verified"){
-                    let template = `
-                        <a href="${v}" class="${k}" target="_blank">
-                            ${k}
-                        </a>
-                    `;
-
-                    $('.profile-social').append(template);
-                }
-            })
-        }
-    })
-}
-
 function tabChooser(query){
     // Plugin is weird, have to select by number order.
     // Default to commands.
@@ -60,12 +25,9 @@ function formatStreamerData(callback){
     getStreamerData(function(streamData){
         let streamer = streamData.owner;
         if(streamer != null){
-            $('.hero-title').text(streamer + '\'s Profile');
-    
-            // Pull profile info.
-            channelLookup(streamer);
+            $('.profile-name').text(streamer);
         } else {
-            $('.hero-title').text('Profile');
+            $('.profile-name').text('Profile');
         }
 
         callback(streamData);

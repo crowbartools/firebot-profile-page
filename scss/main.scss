@@ -109,11 +109,14 @@ $text-color-focused: #fdffff;
                     text-align:right;
                     input{
                         width: 25%;
-                        background-color: $bg-color-dark;
-                        color: $text-color-unfocused;
-                        float:right;
+                        background-color: $bg-color-light;
+                        color: $text-color-focused;
                         margin-bottom:1em;
                         border:none;
+                        padding:.25em;
+                        @media (max-width: "700px") {
+                            width:100%;
+                        }
                     }
                 }
                 .pagination{
