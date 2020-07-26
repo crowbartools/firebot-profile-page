@@ -3,6 +3,32 @@ function setHeader(xhr) {
     xhr.setRequestHeader('Client-ID', '8682f64ae59cbcba5cd701c205b54b04a424b46ca064e563');
 }
 
+function decodeURIComponentSafe(s) {
+    if (!s) {
+        return s;
+    }
+    return decodeURIComponent(s.replace(/%(?![0-9][0-9a-fA-F]+)/g, '%25'));
+}
+
+function sanitizeText(string){
+    string = decodeURIComponentSafe(string);
+
+    let entityMap = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+        '/': '&#x2F;',
+        '`': '&#x60;',
+        '=': '&#x3D;'
+    };
+
+    return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+        return entityMap[s];
+    });
+}
+
 function tabChooser(query){
     // Plugin is weird, have to select by number order.
     // Default to commands.
@@ -39,7 +65,7 @@ function initCommandsList(streamData){
         if(cmd.trigger == null || cmd.trigger == undefined){
             cmd.trigger = "No trigger.";
         } else {
-            cmd.trigger = decodeURIComponent(cmd.trigger);
+            cmd.trigger = sanitizeText(cmd.trigger);
         }
         if(cmd.description == null || cmd.description == undefined){
             cmd.description = "No description."
@@ -64,7 +90,7 @@ function initQuotesList(streamData){
         if(quote.text == null || quote.text == undefined){
             quote.text = "No text.";
         } else {
-            quote.text = "\""+decodeURIComponent(quote.text)+"\"";
+            quote.text = "\""+sanitizeText(quote.text)+"\"";
         }
         if(quote.originator == null || quote.originator == undefined){
             quote.originator = "N/A";
@@ -72,7 +98,7 @@ function initQuotesList(streamData){
         if(quote.game == null || quote.game == undefined){
             quote.game = "No game.";
         } else {
-            quote.game = "["+decodeURIComponent(quote.game)+"]";
+            quote.game = "["+sanitizeText(quote.game)+"]";
         }
         if(quote.createdAt == null || quote.createdAt == undefined){
             quote.createdAt = "N/A";
@@ -80,10 +106,10 @@ function initQuotesList(streamData){
             let date = new Date(quote.createdAt);
             quote.createdAt = date.toLocaleString();
         }
-        if(quote.id == null || quote.id == undefined){
+        if(quote._id == null || quote._id == undefined){
             quote.id = "N/A";
         } else {
-            quote.id = "ID: " + quote.id;
+            quote.id = "ID: " + quote._id;
         }
         return quote;
     });

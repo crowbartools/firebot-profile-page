@@ -120,8 +120,12 @@ $text-color-focused: #fdffff;
                     }
                 }
                 .pagination{
+                    display:flex;
+                    flex-wrap: wrap;
+
                     li{
                         background-color:transparent;
+                        padding: .25em;
                         a{
                             margin-right: 1em;
                             text-decoration: none;
@@ -132,19 +136,6 @@ $text-color-focused: #fdffff;
                             border-radius: 1em;
                             &:hover, &:active{
                                 background-color: $fb-highlight-hover;
-                            }
-                        }
-                    }
-                }
-
-                .quotes-content{
-                    li{
-                        display:flex;
-                        flex-wrap: wrap;
-                        div{
-                            padding: 0em .25em 0em 0em;
-                            &.id, &.text{
-                                width:100%;
                             }
                         }
                     }
