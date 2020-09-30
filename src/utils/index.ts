@@ -13,7 +13,7 @@ export async function getProfileData() {
     );
 
     if (response.status === 200) {
-        return response.data;
+        return JSON.parse(unescape(JSON.stringify(response.data)));
     }
 
     return null;

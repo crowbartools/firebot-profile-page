@@ -8,6 +8,29 @@ class ProfileStore {
 
     @observable unableToLoad: boolean = false;
 
+    @observable activeTabIndex: number = 0;
+
+    @observable commandQuery: string = "";
+
+    @action.bound
+    setCommandQuery(query: string) {
+        this.commandQuery = query;
+    }
+
+    @computed({ keepAlive: true })
+    get filteredCommands() {
+        return (
+            this.profileData?.commands.allowedCmds.filter((c) =>
+                c.trigger.toLowerCase().includes(this.commandQuery.toLowerCase())
+            ) ?? []
+        );
+    }
+
+    @action.bound
+    setActiveTabIndex(index: number) {
+        this.activeTabIndex = index;
+    }
+
     @action.bound
     setProfileData(profileData: ProfileData) {
         if (profileData != null) {
