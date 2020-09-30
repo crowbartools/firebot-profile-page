@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "target": "ES5",
+        "module": "ES6",
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true
+    },
+    "include": ["./src/**/*"]
+}

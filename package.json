@@ -1,0 +1,37 @@
+{
+    "name": "firebot-profile-page",
+    "version": "1.0.0",
+    "description": "Streamer profile page for viewing commands and quotes on firebot.app",
+    "main": "index.js",
+    "scripts": {
+        "build": "./node_modules/.bin/webpack && cp src/index.html dist/index.html",
+        "start": "cp src/index.html dist/index.html && ./node_modules/.bin/webpack-dev-server --port 9000 --open --hot --inline --content-base src"
+    },
+    "engines": {
+        "node": ">=v8.9.0"
+    },
+    "author": "erikbigler@gmail.com",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^0.20.0",
+        "mobx": "^5.15.7",
+        "mobx-react": "^6.3.0",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "tailwindcss": "^1.8.10"
+    },
+    "devDependencies": {
+        "@types/react": "^16.9.49",
+        "@types/react-dom": "^16.9.8",
+        "css-loader": "^4.3.0",
+        "postcss": "^8.1.1",
+        "postcss-loader": "^4.0.2",
+        "source-map-loader": "^0.2.4",
+        "style-loader": "^1.2.1",
+        "ts-loader": "^8.0.4",
+        "typescript": "^4.0.3",
+        "webpack": "^4.44.2",
+        "webpack-cli": "^3.3.12",
+        "webpack-dev-server": "^3.11.0"
+    }
+}
