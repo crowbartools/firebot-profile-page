@@ -48,8 +48,7 @@ export const Searchbar: React.FC<Props> = ({ onSearch }) => {
                         className={clsx(
                             "block w-full pl-10 pr-3 py-2 border border-transparent rounded-md",
                             "leading-5 bg-cool-gray-600 text-gray-300 placeholder-gray-400",
-                            "focus:outline-none sm:text-sm",
-                            "transition duration-150 ease-in-out"
+                            "focus:outline-none sm:text-sm"
                         )}
                         placeholder="Search"
                         type="search"

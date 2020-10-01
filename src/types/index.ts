@@ -10,6 +10,7 @@ export interface ProfileData {
     };
     quotes: {
         quotes: Array<{
+            _id: string;
             createdAt: string;
             creator: string;
             game: string;

@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, reaction } from "mobx";
 import { ProfileData } from "../types";
 import { getProfileData } from "../utils";
 
@@ -10,11 +10,31 @@ class ProfileStore {
 
     @observable activeTabIndex: number = 0;
 
+    @observable quotesPagination = {
+        currentPage: 1,
+        pageSize: 10,
+    };
+
     @observable commandQuery: string = "";
+    @observable quoteQuery: string = "";
+
+    constructor() {
+        reaction(
+            () => this.quoteQuery,
+            () => {
+                this.quotesPagination.currentPage = 1;
+            }
+        );
+    }
 
     @action.bound
     setCommandQuery(query: string) {
         this.commandQuery = query;
+    }
+
+    @action.bound
+    setQuoteQuery(query: string) {
+        this.quoteQuery = query;
     }
 
     @computed({ keepAlive: true })
@@ -26,9 +46,33 @@ class ProfileStore {
         );
     }
 
+    @computed({ keepAlive: true })
+    get filteredQuotes() {
+        const normalizedQuery = this.quoteQuery.toLowerCase();
+        return (
+            this.profileData?.quotes.quotes.filter(
+                (c) =>
+                    c.text.toLowerCase().includes(normalizedQuery) ||
+                    c.originator.toLowerCase().includes(normalizedQuery) ||
+                    c.game.toLowerCase().includes(normalizedQuery)
+            ) ?? []
+        );
+    }
+
+    @computed({ keepAlive: true })
+    get currentQuotes() {
+        const offset = (this.quotesPagination.currentPage - 1) * this.quotesPagination.pageSize;
+        return this.filteredQuotes.slice(offset, offset + this.quotesPagination.pageSize);
+    }
+
     @action.bound
     setActiveTabIndex(index: number) {
         this.activeTabIndex = index;
+    }
+
+    @action.bound
+    setCurrentQuotesPage(page: number) {
+        this.quotesPagination.currentPage = page;
     }
 
     @action.bound
