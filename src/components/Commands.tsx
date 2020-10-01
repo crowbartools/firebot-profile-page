@@ -3,27 +3,38 @@ import { useObserver } from "mobx-react";
 import { useStores } from "../stores";
 import clsx from "clsx";
 import { Searchbar } from "./Searchbar";
+import { Pagination } from "./Pagination";
 
 export const Commands = () => {
     const { profileStore } = useStores();
     return useObserver(() => (
         <>
-            <Searchbar onSearch={profileStore.setCommandQuery} />
-            <div className="bg-gray-700 rounded-md shadow overflow-hidden mt-2">
+            <div className="bg-gray-500 rounded-md overflow-hidden mt-2">
                 {profileStore.profileData &&
-                    profileStore.filteredCommands.map((c, i) => (
+                    profileStore.currentCommands.map((c, i) => (
                         <div
                             key={c.trigger}
                             className={clsx("p-3", {
-                                "border-t border-gray-800": i > 0,
+                                "border-t border-gray-700 border-solid": i > 0,
                             })}
                         >
                             <div className="text-xl">{c.trigger}</div>
-                            <div className="font-light text-gray-300">
+                            <div className="font-light text-gray-200">
                                 {c.description ?? "No description."}
                             </div>
                         </div>
                     ))}
+            </div>
+            <div
+                className="fixed flex items-center justify-center mb-8 shadow-xl"
+                style={{ bottom: 0, left: "50%", transform: "translateX(-50%)" }}
+            >
+                <Pagination
+                    totalRecords={profileStore.filteredCommands.length}
+                    currentPage={profileStore.commandsPagination.currentPage}
+                    pageSize={profileStore.commandsPagination.pageSize}
+                    onPageChanged={profileStore.setCurrentCommandsPage}
+                />
             </div>
         </>
     ));

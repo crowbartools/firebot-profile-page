@@ -1,50 +1,52 @@
 import clsx from "clsx";
 import React, { cloneElement } from "react";
+
 interface Props {
     activeTabIndex: number;
-    config: Record<string, React.ReactElement>;
+    config: Record<
+        string,
+        {
+            content: React.ReactElement;
+            searchbar: React.ReactElement;
+        }
+    >;
     onTabClick: (tabIndex: number) => void;
 }
-export const Tabs: React.FC<Props> = ({
-    activeTabIndex,
-    config,
-    onTabClick,
-}) => (
+export const Tabs: React.FC<Props> = ({ activeTabIndex, config, onTabClick }) => (
     <>
-        <div className="border-b border-gray-700 px-6">
-            <nav className="-mb-px flex">
-                {Object.keys(config).map((tabName, index) => (
-                    <a
-                        key={index}
-                        aria-current={
-                            index === activeTabIndex ? "page" : "false"
-                        }
-                        onClick={() => onTabClick(index)}
-                        className={clsx(
-                            "whitespace-no-wrap py-4 px-1 border-b-2 border-transparent",
-                            "font-medium text-sm leading-5 text-gray-500",
-                            "hover:text-gray-700 hover:border-gray-600",
-                            "focus:outline-none focus:text-gray-700",
-                            "focus:border-gray-300 cursor-pointer",
-                            {
-                                "border-blue-400 text-blue-300":
-                                    index === activeTabIndex,
-                                "focus:text-blue-600 focus:border-blue-500":
-                                    index === activeTabIndex,
-                                "ml-8": index > 0,
-                            }
+        <div className="">
+            <nav className="flex">
+                {Object.entries(config).map(([tabName, { searchbar }], index) => (
+                    <>
+                        <a
+                            key={index}
+                            aria-current={index === activeTabIndex ? "page" : "false"}
+                            onClick={() => onTabClick(index)}
+                            className={clsx(
+                                `text-2xl font-light relative py-2 cursor-pointer hover:text-white`,
+                                {
+                                    "text-gray-200": index !== activeTabIndex,
+                                    "text-white": index === activeTabIndex,
+                                    "ml-14": index > 0,
+                                }
+                            )}
+                        >
+                            {tabName}
+                            {index === activeTabIndex && (
+                                <span className="absolute w-full rounded h-1 bg-blue-300 bottom-0 left-0"></span>
+                            )}
+                        </a>
+                        {index === activeTabIndex && (
+                            <div className="order-last w-96 ml-auto">{searchbar}</div>
                         )}
-                    >
-                        {tabName}
-                    </a>
+                    </>
                 ))}
             </nav>
         </div>
-        <div className="p-6">
+        <div className="pt-10">
             {Object.entries(config).map(
-                ([, Component], index) =>
-                    index === activeTabIndex &&
-                    cloneElement(Component, { key: index })
+                ([, { content }], index) =>
+                    index === activeTabIndex && cloneElement(content, { key: index })
             )}
         </div>
     </>

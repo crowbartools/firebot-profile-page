@@ -1,4 +1,4 @@
-import { action, computed, observable, reaction } from "mobx";
+import { action, computed, observable, reaction, toJS } from "mobx";
 import { ProfileData } from "../types";
 import { getProfileData } from "../utils";
 
@@ -15,6 +15,11 @@ class ProfileStore {
         pageSize: 10,
     };
 
+    @observable commandsPagination = {
+        currentPage: 1,
+        pageSize: 10,
+    };
+
     @observable commandQuery: string = "";
     @observable quoteQuery: string = "";
 
@@ -23,6 +28,13 @@ class ProfileStore {
             () => this.quoteQuery,
             () => {
                 this.quotesPagination.currentPage = 1;
+            }
+        );
+
+        reaction(
+            () => this.commandQuery,
+            () => {
+                this.commandsPagination.currentPage = 1;
             }
         );
     }
@@ -44,6 +56,12 @@ class ProfileStore {
                 c.trigger.toLowerCase().includes(this.commandQuery.toLowerCase())
             ) ?? []
         );
+    }
+
+    @computed({ keepAlive: true })
+    get currentCommands() {
+        const offset = (this.commandsPagination.currentPage - 1) * this.commandsPagination.pageSize;
+        return this.filteredCommands.slice(offset, offset + this.commandsPagination.pageSize);
     }
 
     @computed({ keepAlive: true })
@@ -71,6 +89,11 @@ class ProfileStore {
     }
 
     @action.bound
+    setCurrentCommandsPage(page: number) {
+        this.commandsPagination.currentPage = page;
+    }
+
+    @action.bound
     setCurrentQuotesPage(page: number) {
         this.quotesPagination.currentPage = page;
     }
@@ -79,6 +102,7 @@ class ProfileStore {
     setProfileData(profileData: ProfileData) {
         if (profileData != null) {
             this.profileData = profileData;
+            this.profileData.quotes.quotes = toJS(this.profileData.quotes.quotes).reverse();
         } else {
             this.unableToLoad = true;
         }

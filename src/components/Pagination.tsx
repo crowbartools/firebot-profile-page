@@ -76,9 +76,9 @@ export const Pagination: React.FC<Props> = ({
 
     return (
         <div>
-            <nav className="relative z-0 inline-flex shadow-sm">
+            <nav className="relative z-0 inline-flex shadow-lg select-none">
                 <a
-                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-900 bg-cool-gray-600  text-sm leading-5 font-medium text-white hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-cool-gray-500 active:text-gray-500 transition ease-in-out duration-150"
+                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-700 bg-gray-400 text-sm leading-5 font-medium text-white hover:text-gray-200"
                     aria-label="Previous"
                     onClick={() => onPageChanged(Math.max(1, currentPage - 1))}
                 >
@@ -97,7 +97,7 @@ export const Pagination: React.FC<Props> = ({
                                 key={index}
                                 className={clsx(
                                     "-ml-px relative inline-flex items-center px-4 py-2 border",
-                                    "border-gray-900 bg-cool-gray-600 text-sm leading-5 font-medium",
+                                    "border-gray-700 border-solid bg-gray-400 text-sm leading-5 font-medium",
                                     "text-white"
                                 )}
                             >
@@ -111,12 +111,12 @@ export const Pagination: React.FC<Props> = ({
                             onClick={() => onPageChanged(page)}
                             className={clsx(
                                 "cursor-pointer hidden md:inline-flex -ml-px relative items-center",
-                                "px-4 py-2 border border-gray-900 bg-cool-gray-600 text-sm leading-5",
-                                "font-medium text-white hover:text-gray-500 focus:z-10 focus:outline-none",
-                                "focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100",
-                                "active:text-gray-700 transition ease-in-out duration-150",
+                                "px-4 py-2 border border-gray-700 border-solid bg-gray-400 text-sm leading-5",
+                                "font-medium text-white hover:text-gray-200 focus:z-10 outline-none",
+                                "focus:shadow-focus",
+                                "transition ease-in-out duration-150",
                                 {
-                                    "border-blue-300 z-10": page === currentPage,
+                                    "bg-gray-500 z-10": page === currentPage,
                                 }
                             )}
                         >
@@ -125,7 +125,7 @@ export const Pagination: React.FC<Props> = ({
                     );
                 })}
                 <a
-                    className="cursor-pointer -ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-900 bg-cool-gray-600 text-sm leading-5 font-medium text-white hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
+                    className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-700 bg-gray-400 text-sm leading-5 font-medium text-white hover:text-gray-200"
                     aria-label="Next"
                     onClick={() => onPageChanged(Math.min(totalPages, currentPage + 1))}
                 >
