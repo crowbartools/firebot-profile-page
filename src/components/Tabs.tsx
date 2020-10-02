@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { cloneElement } from "react";
 
 interface Props {
@@ -32,12 +33,23 @@ export const Tabs: React.FC<Props> = ({ activeTabIndex, config, onTabClick }) =>
                             )}
                         >
                             {tabName}
-                            {index === activeTabIndex && (
-                                <span className="absolute w-full rounded h-1 bg-blue-300 bottom-0 left-0"></span>
-                            )}
+                            <div className="absolute bottom-0 left-0 w-full flex justify-center">
+                                <AnimatePresence>
+                                    {index === activeTabIndex && (
+                                        <motion.span
+                                            className="rounded h-1 bg-blue-300"
+                                            initial={{ width: 0 }}
+                                            animate={{ width: "100%" }}
+                                            exit={{ width: 0 }}
+                                            transition={{ ease: "easeOut", duration: 0.05 }}
+                                        ></motion.span>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                         </a>
+
                         {index === activeTabIndex && (
-                            <div className="order-last w-96 ml-auto">{searchbar}</div>
+                            <div className="order-last ml-auto w-96">{searchbar}</div>
                         )}
                     </>
                 ))}

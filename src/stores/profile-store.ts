@@ -5,7 +5,7 @@ import { getChannelInfo, getProfileData } from "../utils";
 class ProfileStore {
     @observable profileData: ProfileData = null;
     @observable channelInfo: ChannelInfo = null;
-    @observable isLoading: boolean = false;
+    @observable isLoading: boolean = true;
     @observable unableToLoad: boolean = false;
     @observable activeTabIndex: number = 0;
 
@@ -115,7 +115,6 @@ class ProfileStore {
 
     @action.bound
     getProfileData() {
-        if (this.isLoading) return;
         this.isLoading = true;
         this.unableToLoad = false;
         getProfileData().then((profileData) => {

@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
 import { useObserver } from "mobx-react";
 import * as React from "react";
 import { useEffect } from "react";
@@ -16,7 +17,17 @@ export const App: React.FC = () => {
     }, []);
 
     return useObserver(() => (
-        <div className="w-full h-full text-white">
+        <div className="w-full h-full text-white relative">
+            <AnimatePresence>
+                {profileStore.isLoading && (
+                    <motion.div
+                        className="absolute top-0 left-0 bottom-0 right-0 bg-gray-700 z-50"
+                        initial={{ opacity: 1 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    ></motion.div>
+                )}
+            </AnimatePresence>
             <div className="mb-5 flex items-center">
                 {profileStore.channelInfo ? (
                     <img
