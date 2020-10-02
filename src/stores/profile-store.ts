@@ -118,7 +118,6 @@ class ProfileStore {
         this.isLoading = true;
         this.unableToLoad = false;
         getProfileData().then((profileData) => {
-            this.setProfileData(profileData);
             getChannelInfo(profileData.owner).then((channelInfo) => {
                 this.setChannelInfo(channelInfo);
                 this.setProfileData(profileData);

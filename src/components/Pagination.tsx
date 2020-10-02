@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Modal } from "./Modal";
 
 const SPILL = -1;
 
@@ -72,13 +73,100 @@ export const Pagination: React.FC<Props> = ({
     const totalPages = Math.ceil(totalRecords / pageSize);
 
     if (!totalRecords || totalPages === 1) return null;
+
+    const [jumpToModalOpen, setJumpToModalOpen] = useState(false);
+    const [jumpToPage, setJumpToPage] = useState<number | null>(null);
+
+    const inputRef = useRef<HTMLInputElement>();
+    useEffect(() => {
+        if (jumpToModalOpen) {
+            setTimeout(() => {
+                inputRef.current?.focus();
+            }, 10);
+        }
+    }, [jumpToModalOpen]);
+
     const pages = generatePageNumbers(totalPages, currentPage, NEIGHBORS);
+
+    const handleJumpToPage = () => {
+        if (!isNaN(jumpToPage)) {
+            if (jumpToPage > 0 && jumpToPage <= totalPages) {
+                onPageChanged(jumpToPage);
+            }
+        }
+        setJumpToModalOpen(false);
+    };
 
     return (
         <div>
+            <Modal
+                isOpen={jumpToModalOpen}
+                onClickAway={() => setJumpToModalOpen(false)}
+                onClose={() => setJumpToModalOpen(false)}
+            >
+                <div className="p-6">
+                    <h2 className="text-white font-thin text-2xl mb-4">Jump To Page</h2>
+                    <input
+                        ref={inputRef}
+                        className="block w-full p-3 rounded-lg bg-gray-400 placeholder-gray-200 text-white outline-none focus:shadow-focus border-none"
+                        value={jumpToPage || ""}
+                        placeholder="Enter page"
+                        onKeyPress={(event) => {
+                            if (event.key === "Enter") {
+                                handleJumpToPage();
+                            }
+                        }}
+                        onChange={(event) => setJumpToPage(parseInt(event.target.value) || null)}
+                        type="number"
+                    />
+                    <div className="mt-4 flex justify-end">
+                        <button
+                            className="p-3 rounded-lg bg-gray-500 w-20 text-white mr-2 hover:bg-opacity-75"
+                            onClick={() => setJumpToModalOpen(false)}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            className="p-3 rounded-lg bg-blue-700 w-20 text-white hover:bg-opacity-75"
+                            onClick={() => handleJumpToPage()}
+                        >
+                            Go
+                        </button>
+                    </div>
+                </div>
+            </Modal>
             <nav className="relative z-0 inline-flex shadow-lg select-none">
                 <a
-                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-700 bg-gray-400 text-sm leading-5 font-medium text-white hover:text-gray-200"
+                    className="absolute ml-3 px-2 py-2 border-solid shadow-lg inline-flex items-center rounded-md border border-gray-700 bg-gray-400 text-sm hover:text-gray-200 cursor-pointer"
+                    onClick={() => {
+                        setJumpToPage(null);
+                        setJumpToModalOpen(true);
+                    }}
+                    style={{
+                        left: "100%",
+                        bottom: "50%",
+                        transform: "translateY(50%)",
+                    }}
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M 3 14 L 13 14 C 17.418 14 21 10.418 21 6 L 21 4 M 3 14 L 9 8 M 3 14 L 9 20"
+                            transform="matrix(-1, 0, 0, -1, 24, 24)"
+                        />
+                    </svg>
+                </a>
+
+                <a
+                    className="relative cursor-pointer border-solid inline-flex items-center px-2 py-2 rounded-l-md border border-gray-700 bg-gray-400 text-sm leading-5 font-medium text-white hover:text-gray-200"
                     aria-label="Previous"
                     onClick={() => onPageChanged(Math.max(1, currentPage - 1))}
                 >
@@ -125,7 +213,7 @@ export const Pagination: React.FC<Props> = ({
                     );
                 })}
                 <a
-                    className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-700 bg-gray-400 text-sm leading-5 font-medium text-white hover:text-gray-200"
+                    className="cursor-pointer -ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-solid border-gray-700 bg-gray-400 text-sm leading-5 font-medium text-white hover:text-gray-200"
                     aria-label="Next"
                     onClick={() => onPageChanged(Math.min(totalPages, currentPage + 1))}
                 >

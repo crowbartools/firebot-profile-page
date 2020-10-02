@@ -49,7 +49,9 @@ export const Tabs: React.FC<Props> = ({ activeTabIndex, config, onTabClick }) =>
                         </a>
 
                         {index === activeTabIndex && (
-                            <div className="order-last ml-auto w-96">{searchbar}</div>
+                            <div key={tabName} className="order-last ml-auto w-96">
+                                {searchbar}
+                            </div>
                         )}
                     </>
                 ))}

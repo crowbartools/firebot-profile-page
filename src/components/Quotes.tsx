@@ -43,7 +43,7 @@ export const Quotes = () => {
                                         {q.originator}
                                     </td>
                                     <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5">
-                                        {moment(q.createdAt).format()}
+                                        {moment(q.createdAt).format("M/DD/YYYY")}
                                     </td>
                                     <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5">
                                         {q.game}

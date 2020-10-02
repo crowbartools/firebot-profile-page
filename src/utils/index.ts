@@ -23,7 +23,7 @@ export async function getChannelInfo(channelName: string): Promise<ChannelInfo> 
     }
 
     const response = await axios.get<ChannelInfo>(
-        `http://api.firebot.app/v1/channel/${channelName}`
+        `https://api.firebot.app/v1/channel/${channelName}`
     );
 
     if (response.status === 200) {
