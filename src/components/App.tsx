@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useObserver } from "mobx-react";
 import * as React from "react";
 import { useEffect } from "react";
@@ -16,10 +17,30 @@ export const App: React.FC = () => {
 
     return useObserver(() => (
         <div className="w-full h-full text-white">
-            <div className="mb-5">
-                <h2 className="text-6xl text-white leading-normal tracking-wide">
-                    {profileStore.profileData?.owner}
+            <div className="mb-5 flex items-center">
+                {profileStore.channelInfo ? (
+                    <img
+                        className="inline-block h-36 w-36 rounded-full bg-gray-400"
+                        src={profileStore.channelInfo?.profilePicUrl}
+                        alt="Profile Picture"
+                    />
+                ) : (
+                    <div className="w-36 h-36 rounded-full bg-gray-400" />
+                )}
+                <h2 className="text-6xl text-white leading-normal tracking-wide mx-4">
+                    {profileStore.channelInfo?.displayName}
                 </h2>
+                {profileStore.channelInfo && (
+                    <div className="rounded-md bg-gray-400 flex py-1 px-2 items-center">
+                        <div
+                            className={clsx("rounded-full w-4 h-4 mr-2 flex-grow-0", {
+                                "bg-red-300": profileStore.channelInfo?.isLive,
+                                "bg-gray-200": !profileStore.channelInfo?.isLive,
+                            })}
+                        ></div>
+                        <div>{profileStore.channelInfo?.isLive ? "LIVE" : "OFFLINE"}</div>
+                    </div>
+                )}
             </div>
             <div>
                 <Tabs

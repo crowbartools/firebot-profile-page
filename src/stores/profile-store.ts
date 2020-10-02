@@ -1,13 +1,12 @@
 import { action, computed, observable, reaction, toJS } from "mobx";
-import { ProfileData } from "../types";
-import { getProfileData } from "../utils";
+import { ChannelInfo, ProfileData } from "../types";
+import { getChannelInfo, getProfileData } from "../utils";
 
 class ProfileStore {
     @observable profileData: ProfileData = null;
+    @observable channelInfo: ChannelInfo = null;
     @observable isLoading: boolean = false;
-
     @observable unableToLoad: boolean = false;
-
     @observable activeTabIndex: number = 0;
 
     @observable quotesPagination = {
@@ -110,12 +109,21 @@ class ProfileStore {
     }
 
     @action.bound
+    setChannelInfo(channelInfo: ChannelInfo) {
+        this.channelInfo = channelInfo;
+    }
+
+    @action.bound
     getProfileData() {
         if (this.isLoading) return;
         this.isLoading = true;
         this.unableToLoad = false;
-        getProfileData().then((data) => {
-            this.setProfileData(data);
+        getProfileData().then((profileData) => {
+            this.setProfileData(profileData);
+            getChannelInfo(profileData.owner).then((channelInfo) => {
+                this.setChannelInfo(channelInfo);
+                this.setProfileData(profileData);
+            });
         });
     }
 }

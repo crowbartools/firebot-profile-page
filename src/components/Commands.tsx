@@ -2,7 +2,6 @@ import React from "react";
 import { useObserver } from "mobx-react";
 import { useStores } from "../stores";
 import clsx from "clsx";
-import { Searchbar } from "./Searchbar";
 import { Pagination } from "./Pagination";
 
 export const Commands = () => {

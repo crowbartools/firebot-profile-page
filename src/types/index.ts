@@ -19,3 +19,12 @@ export interface ProfileData {
         }>;
     };
 }
+
+export interface ChannelInfo {
+    userId: string;
+    username: string;
+    displayName: string;
+    profilePicUrl: string;
+    isLive: boolean;
+    description: string;
+}
