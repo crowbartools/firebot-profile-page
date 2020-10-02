@@ -39,7 +39,7 @@ export const App: React.FC = () => {
                     <div className="w-36 h-36 rounded-full bg-gray-400" />
                 )}
                 <h2 className="text-6xl text-white leading-normal tracking-wide mx-4">
-                    {profileStore.channelInfo?.displayName}
+                    {profileStore.channelInfo?.displayName ?? profileStore.profileData?.owner}
                 </h2>
                 {profileStore.channelInfo && (
                     <div className="rounded-md bg-gray-400 flex py-1 px-2 items-center">
