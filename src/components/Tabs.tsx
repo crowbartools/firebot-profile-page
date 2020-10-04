@@ -23,7 +23,7 @@ export const Tabs: React.FC<Props> = ({ activeTabIndex, config, onTabClick }) =>
                         aria-current={index === activeTabIndex ? "page" : "false"}
                         onClick={() => onTabClick(index)}
                         className={clsx(
-                            `text-2xl font-light relative py-2 cursor-pointer hover:text-white`,
+                            `text-2xl font-light relative py-2 cursor-pointer hover:text-white select-none`,
                             {
                                 "text-gray-200": index !== activeTabIndex,
                                 "text-white": index === activeTabIndex,

@@ -1,6 +1,10 @@
 import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
+import ArrowUpIcon from "./icons/ScrollIndicatorArrow";
+import JumpToIcon from "./icons/JumpTo";
 import { Modal } from "./Modal";
+import { ScrollIndicator } from "./ScrollIndicator";
+import ScrollIndicatorArrow from "./icons/ScrollIndicatorArrow";
 
 const SPILL = -1;
 
@@ -137,7 +141,7 @@ export const Pagination: React.FC<Props> = ({
             </Modal>
             <nav className="relative z-0 inline-flex shadow-lg select-none">
                 <a
-                    className="absolute ml-3 px-2 py-2 border-solid shadow-lg inline-flex items-center rounded-md border border-gray-700 bg-gray-400 text-sm hover:text-gray-200 cursor-pointer"
+                    className="absolute ml-3 lg:px-2 lg:py-2 lg:text-sm px-4 py-3 text-base border-solid shadow-lg inline-flex items-center rounded-md border border-gray-700 bg-gray-400 hover:text-gray-200 cursor-pointer"
                     onClick={() => {
                         setJumpToPage(null);
                         setJumpToModalOpen(true);
@@ -148,25 +152,25 @@ export const Pagination: React.FC<Props> = ({
                         transform: "translateY(50%)",
                     }}
                 >
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M 3 14 L 13 14 C 17.418 14 21 10.418 21 6 L 21 4 M 3 14 L 9 8 M 3 14 L 9 20"
-                            transform="matrix(-1, 0, 0, -1, 24, 24)"
-                        />
-                    </svg>
+                    <JumpToIcon />
                 </a>
 
                 <a
-                    className="relative cursor-pointer border-solid inline-flex items-center px-2 py-2 rounded-l-md border border-gray-700 bg-gray-400 text-sm leading-5 font-medium text-white hover:text-gray-200"
+                    className="absolute mr-3 lg:px-1 lg:py-1 lg:text-sm px-3 py-2 text-base border-solid shadow-lg inline-flex items-center rounded-md border border-gray-700 bg-gray-400 hover:text-gray-200 cursor-pointer"
+                    onClick={() => {
+                        window.scrollTo(0, 0);
+                    }}
+                    style={{
+                        right: "100%",
+                        bottom: "50%",
+                        transform: "translateY(50%)",
+                    }}
+                >
+                    <ScrollIndicatorArrow />
+                </a>
+
+                <a
+                    className="relative cursor-pointer border-solid inline-flex items-center lg:px-2 lg:py-2 lg:text-sm px-4 py-3 text-base rounded-l-md border border-gray-700 bg-gray-400 leading-5 font-medium text-white hover:text-gray-200"
                     aria-label="Previous"
                     onClick={() => onPageChanged(Math.max(1, currentPage - 1))}
                 >
@@ -184,7 +188,7 @@ export const Pagination: React.FC<Props> = ({
                             <span
                                 key={index}
                                 className={clsx(
-                                    "-ml-px relative inline-flex items-center px-4 py-2 border",
+                                    "-ml-px relative hidden md:inline-flex items-center px-4 py-2 border",
                                     "border-gray-700 border-solid bg-gray-400 text-sm leading-5 font-medium",
                                     "text-white"
                                 )}
@@ -198,13 +202,15 @@ export const Pagination: React.FC<Props> = ({
                             key={index}
                             onClick={() => onPageChanged(page)}
                             className={clsx(
-                                "cursor-pointer hidden md:inline-flex -ml-px relative items-center",
-                                "px-4 py-2 border border-gray-700 border-solid bg-gray-400 text-sm leading-5",
-                                "font-medium text-white hover:text-gray-200 focus:z-10 outline-none",
+                                "cursor-pointer inline-flex -ml-px relative items-center",
+                                "lg:px-4 lg:py-2 lg:text-sm px-6 py-3 text-base border border-gray-700 border-solid bg-gray-400 leading-5",
+                                "font-medium hover:bg-opacity-25 focus:z-10 outline-none",
                                 "focus:shadow-focus",
                                 "transition ease-in-out duration-150",
                                 {
-                                    "bg-gray-500 z-10": page === currentPage,
+                                    "bg-gray-700 z-10 inline-flex text-blue-300":
+                                        page === currentPage,
+                                    "hidden md:inline-flex text-white": page !== currentPage,
                                 }
                             )}
                         >
@@ -213,7 +219,7 @@ export const Pagination: React.FC<Props> = ({
                     );
                 })}
                 <a
-                    className="cursor-pointer -ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-solid border-gray-700 bg-gray-400 text-sm leading-5 font-medium text-white hover:text-gray-200"
+                    className="cursor-pointer -ml-px relative inline-flex items-center lg:px-2 lg:py-2 lg:text-sm px-4 py-3 text-base rounded-r-md border border-solid border-gray-700 bg-gray-400 leading-5 font-medium text-white hover:text-gray-200"
                     aria-label="Next"
                     onClick={() => onPageChanged(Math.min(totalPages, currentPage + 1))}
                 >

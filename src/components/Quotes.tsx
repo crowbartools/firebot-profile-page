@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { motion } from "framer-motion";
 import { useObserver } from "mobx-react";
 import moment from "moment";
 import React from "react";
@@ -10,7 +9,7 @@ export const Quotes = () => {
     const { profileStore } = useStores();
     return useObserver(() => (
         <>
-            <div className="bg-gray-500 rounded-md overflow-hidden mt-2">
+            <div className="bg-gray-500 rounded-md overflow-hidden mt-2 mb-16 md:mb-9">
                 {profileStore.profileData &&
                     profileStore.currentQuotes.map((q, i) => (
                         <div
@@ -19,7 +18,9 @@ export const Quotes = () => {
                                 "border-t border-gray-700 border-solid": i > 0,
                             })}
                         >
-                            <div className="text-2xl italic font-hairline mb-2">{q.text}</div>
+                            <div className="text-2xl italic font-hairline mb-2 break-words">
+                                {q.text}
+                            </div>
                             <div>
                                 &#8212; <span>{q.originator}</span>,{" "}
                                 <span className="font-thin">
@@ -32,7 +33,7 @@ export const Quotes = () => {
                     ))}
             </div>
             <div
-                className="fixed flex items-center justify-center mb-5 shadow-xl"
+                className="fixed flex items-center justify-center mb-8 md:mb-5 shadow-xl"
                 style={{ bottom: 0, left: "50%", transform: "translateX(-50%)" }}
             >
                 <Pagination

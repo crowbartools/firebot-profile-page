@@ -12,12 +12,12 @@ class ProfileStore {
 
     @observable quotesPagination = {
         currentPage: 1,
-        pageSize: 10,
+        pageSize: 25,
     };
 
     @observable commandsPagination = {
         currentPage: 1,
-        pageSize: 10,
+        pageSize: 25,
     };
 
     @observable commandQuery: string = "";
