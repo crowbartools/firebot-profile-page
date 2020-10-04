@@ -1,4 +1,5 @@
 import { action, computed, observable, reaction, toJS } from "mobx";
+import moment from "moment";
 import { ChannelInfo, ProfileData } from "../types";
 import { getChannelInfo, getProfileData } from "../utils";
 
@@ -65,13 +66,15 @@ class ProfileStore {
 
     @computed({ keepAlive: true })
     get filteredQuotes() {
-        const normalizedQuery = this.quoteQuery.toLowerCase();
+        const normalizedQuery = this.quoteQuery.trim().toLowerCase();
         return (
             this.profileData?.quotes.quotes.filter(
                 (c) =>
                     c.text.toLowerCase().includes(normalizedQuery) ||
                     c.originator.toLowerCase().includes(normalizedQuery) ||
-                    c.game.toLowerCase().includes(normalizedQuery)
+                    c.game.toLowerCase().includes(normalizedQuery) ||
+                    c._id === normalizedQuery ||
+                    moment(c.createdAt).format("MM/DD/YYYY h:mm").includes(normalizedQuery)
             ) ?? []
         );
     }
