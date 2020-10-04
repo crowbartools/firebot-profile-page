@@ -28,7 +28,7 @@ export const App: React.FC = () => {
                     ></motion.div>
                 )}
             </AnimatePresence>
-            <div className="mb-5 flex items-center">
+            <div className="mb-5 flex items-center lg:flex-row flex-col">
                 {profileStore.channelInfo ? (
                     <img
                         className="inline-block h-36 w-36 rounded-full bg-gray-400"
