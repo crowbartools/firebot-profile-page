@@ -38,7 +38,7 @@ export const App: React.FC = () => {
                 ) : (
                     <div className="w-36 h-36 rounded-full bg-gray-400" />
                 )}
-                <h2 className="text-6xl text-white leading-normal tracking-wide mx-4">
+                <h2 className="text-4xl md:text-6xl text-white leading-normal tracking-wide mx-4">
                     {profileStore.channelInfo?.displayName ?? profileStore.profileData?.owner}
                 </h2>
                 {profileStore.channelInfo && (

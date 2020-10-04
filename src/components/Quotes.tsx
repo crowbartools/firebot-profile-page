@@ -23,7 +23,7 @@ export const Quotes = () => {
                             <div>
                                 &#8212; <span>{q.originator}</span>,{" "}
                                 <span className="font-thin">
-                                    {moment(q.createdAt).format("M/DD/YYYY")}
+                                    {moment(q.createdAt).format("M/D/YYYY")}
                                 </span>
                                 <span className="text-sm text-gray-200 ml-2">({q.game})</span>
                             </div>

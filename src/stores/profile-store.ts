@@ -67,14 +67,16 @@ class ProfileStore {
     @computed({ keepAlive: true })
     get filteredQuotes() {
         const normalizedQuery = this.quoteQuery.trim().toLowerCase();
+        const queryIsNum = /^\d+$/.test(normalizedQuery);
         return (
-            this.profileData?.quotes.quotes.filter(
-                (c) =>
-                    c.text.toLowerCase().includes(normalizedQuery) ||
-                    c.originator.toLowerCase().includes(normalizedQuery) ||
-                    c.game.toLowerCase().includes(normalizedQuery) ||
-                    c._id === normalizedQuery ||
-                    moment(c.createdAt).format("MM/DD/YYYY h:mm").includes(normalizedQuery)
+            this.profileData?.quotes.quotes.filter((c) =>
+                queryIsNum
+                    ? c.text.toLowerCase().includes(normalizedQuery) ||
+                      c._id.toString() === normalizedQuery
+                    : c.text.toLowerCase().includes(normalizedQuery) ||
+                      c.originator.toLowerCase().includes(normalizedQuery) ||
+                      c.game.toLowerCase().includes(normalizedQuery) ||
+                      moment(c.createdAt).format("M/D/YYYY").includes(normalizedQuery)
             ) ?? []
         );
     }

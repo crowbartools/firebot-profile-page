@@ -46,7 +46,7 @@ export const Searchbar: React.FC<Props> = ({ onSearch }) => {
                     <input
                         id="search"
                         className={clsx(
-                            "block w-full pl-10 pr-3 py-3 rounded-lg",
+                            "block w-full pl-10 pr-3 py-3 rounded-lg text-white",
                             "leading-5 bg-gray-400 text-gray-300 placeholder-gray-200",
                             "outline-none text-base focus:shadow-focus border-none"
                         )}
