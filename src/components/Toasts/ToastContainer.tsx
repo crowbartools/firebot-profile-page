@@ -8,7 +8,7 @@ export type ToastContainerProps = {
 export function ToastContainer({ children }: ToastContainerProps) {
     return createPortal(
         <ul
-            className={clsx("box-border max-h-full mt-5 fixed list-none flex flex-col")}
+            className={clsx("box-border max-h-full mt-20 fixed list-none flex flex-col")}
             // position toasts in the top center
             style={{
                 top: 0,

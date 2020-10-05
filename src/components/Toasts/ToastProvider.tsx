@@ -34,7 +34,7 @@ export const ToastProvider = observer(({ children }) => {
                             exit={{ opacity: 0, scale: 0.5, y: 25, transition: { duration: 0.2 } }}
                             onClick={() => remove(id)}
                             className={clsx(
-                                "text-white p-2 px-4 rounded-lg shadow-lg min-w-44",
+                                "text-white p-2 px-4 rounded-lg shadow-xl min-w-44",
                                 "flex justify-center items-center mb-2",
                                 {
                                     "bg-green-600": appearance === "success",
