@@ -5,10 +5,13 @@ import "./index.css";
 
 import { App } from "./components/App";
 import { initialStore, Provider as StoreProvider } from "./stores";
+import { ToastProvider } from "./components/Toasts";
 
 ReactDOM.render(
     <StoreProvider value={initialStore}>
-        <App />
+        <ToastProvider>
+            <App />
+        </ToastProvider>
     </StoreProvider>,
     document.getElementById("firebot-profile-app")
 );

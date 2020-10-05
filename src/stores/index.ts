@@ -1,9 +1,11 @@
 import { createContext, useContext } from "react";
 
 import { profileStore } from "./profile-store";
+import { toastStore } from "./toasts-store";
 
 export const initialStore = {
     profileStore,
+    toastStore,
 };
 
 const RootStoreContext = createContext(initialStore);
