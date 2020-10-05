@@ -141,13 +141,13 @@ export const Pagination: React.FC<Props> = ({
             </Modal>
             <nav className="relative z-0 inline-flex shadow-lg select-none">
                 <a
-                    className="absolute ml-3 lg:px-2 lg:py-2 lg:text-sm px-4 py-3 text-base border-solid shadow-lg inline-flex items-center rounded-md border border-gray-700 bg-gray-400 hover:text-gray-200 cursor-pointer"
+                    className="absolute mr-3 lg:px-2 lg:py-2 lg:text-sm px-4 py-3 text-base border-solid shadow-lg inline-flex items-center rounded-md border border-gray-700 bg-gray-400 hover:text-gray-200 cursor-pointer"
                     onClick={() => {
                         setJumpToPage(null);
                         setJumpToModalOpen(true);
                     }}
                     style={{
-                        left: "100%",
+                        right: "100%",
                         bottom: "50%",
                         transform: "translateY(50%)",
                     }}
@@ -156,12 +156,12 @@ export const Pagination: React.FC<Props> = ({
                 </a>
 
                 <a
-                    className="absolute mr-3 lg:px-1 lg:py-1 lg:text-sm px-3 py-2 text-base border-solid shadow-lg inline-flex items-center rounded-md border border-gray-700 bg-gray-400 hover:text-gray-200 cursor-pointer"
+                    className="absolute ml-3 lg:px-1 lg:py-1 lg:text-sm px-3 py-2 text-base border-solid shadow-lg inline-flex items-center rounded-md border border-gray-700 bg-gray-400 hover:text-gray-200 cursor-pointer"
                     onClick={() => {
                         window.scrollTo(0, 0);
                     }}
                     style={{
-                        right: "100%",
+                        left: "100%",
                         bottom: "50%",
                         transform: "translateY(50%)",
                     }}
