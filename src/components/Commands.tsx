@@ -4,6 +4,10 @@ import { useStores } from "../stores";
 import clsx from "clsx";
 import { Pagination } from "./Pagination";
 import { Tooltip } from "./Tooltip";
+import { ClockIcon } from "./icons/Clock";
+import { GlobeIcon } from "./icons/Globe";
+import { UserIcon } from "./icons/User";
+import { LockIcon } from "./icons/Lock";
 
 export const Commands = () => {
     const { profileStore, toastStore } = useStores();
@@ -46,9 +50,42 @@ export const Commands = () => {
                                         </svg>
                                     </button>
                                 </Tooltip>
+                                <span className="font-light text-gray-200 ml-2 text-base">
+                                    &#8212; {c.description ?? "No description."}
+                                </span>
                             </div>
-                            <div className="font-light text-gray-200">
-                                {c.description ?? "No description."}
+                            <div className="flex items-center text-sm mt-2">
+                                {c.cooldown?.global > 0 && (
+                                    <Tooltip content="Global cooldown">
+                                        <span className="flex items-center mr-2">
+                                            <GlobeIcon className="text-gray-200" />
+                                            <span>{c.cooldown.global}s</span>
+                                        </span>
+                                    </Tooltip>
+                                )}
+                                {c.cooldown?.user > 0 && (
+                                    <Tooltip content="User cooldown">
+                                        <span className="flex items-center mr-2">
+                                            <UserIcon className="text-gray-200" />
+                                            <span>{c.cooldown.user}s</span>
+                                        </span>
+                                    </Tooltip>
+                                )}
+                                {c.permissions?.roles.length > 0 && (
+                                    <Tooltip content="Permissions">
+                                        <span className="flex items-center">
+                                            <LockIcon className="text-gray-200 mr-1" />
+                                            {c.permissions.roles.map((r) => (
+                                                <span
+                                                    key={r}
+                                                    className="bg-gray-300 px-1 rounded mr-1 text-xs"
+                                                >
+                                                    {r}
+                                                </span>
+                                            ))}
+                                        </span>
+                                    </Tooltip>
+                                )}
                             </div>
                         </div>
                     ))}

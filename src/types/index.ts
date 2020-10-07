@@ -1,3 +1,5 @@
+type RestrictionType = "firebot:permissions";
+
 export interface ProfileData {
     owner: string;
     chatter: string;
@@ -6,6 +8,26 @@ export interface ProfileData {
         allowedCmds: Array<{
             trigger: string;
             description?: string;
+            cooldown: {
+                user?: number;
+                global?: number;
+            };
+            permissions?: {
+                roles: string[];
+            };
+            restrictionData?: {
+                restrictions: Array<{
+                    type: RestrictionType;
+                    mode?: "roles" | "viewer";
+                    roleIds?: string[];
+                    username?: string;
+                }>;
+            };
+            subCommands?: Array<{
+                arg: string;
+                description: string;
+                usage: string;
+            }>;
         }>;
     };
     quotes: {

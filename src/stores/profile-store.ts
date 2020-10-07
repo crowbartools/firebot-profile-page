@@ -1,7 +1,7 @@
 import { action, computed, observable, reaction, toJS } from "mobx";
 import moment from "moment";
 import { ChannelInfo, ProfileData } from "../types";
-import { getChannelInfo, getProfileData } from "../utils";
+import getMappedRoles, { getChannelInfo, getProfileData } from "../utils";
 
 class ProfileStore {
     @observable profileData: ProfileData = null;
@@ -107,6 +107,19 @@ class ProfileStore {
         if (profileData != null) {
             this.profileData = profileData;
             this.profileData.quotes.quotes = toJS(this.profileData.quotes.quotes).reverse();
+            this.profileData.commands.allowedCmds.map((c) => {
+                if (
+                    c.restrictionData?.restrictions?.some((r) => r.type === "firebot:permissions")
+                ) {
+                    const permissionsRestriction = c.restrictionData.restrictions.find(
+                        (r) => r.type === "firebot:permissions"
+                    );
+                    if (permissionsRestriction.roleIds?.length > 0) {
+                        c.permissions = { roles: getMappedRoles(permissionsRestriction.roleIds) };
+                    }
+                }
+                return c;
+            });
         } else {
             this.unableToLoad = true;
         }
