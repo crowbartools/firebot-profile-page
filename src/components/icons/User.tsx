@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 export const UserIcon: React.FC<{ className?: string }> = ({ className }) => (
-    <div className={clsx("inline-block w-4 h-4", className)}>
+    <div className={clsx("inline-block w-3 h-3", className)}>
         <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

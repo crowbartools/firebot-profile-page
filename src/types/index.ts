@@ -1,5 +1,33 @@
 type RestrictionType = "firebot:permissions";
 
+export type Restriction = {
+    type: RestrictionType;
+    mode?: "roles" | "viewer";
+    roleIds?: string[];
+    username?: string;
+};
+
+export type Command = {
+    trigger: string;
+    description?: string;
+    cooldown: {
+        user?: number;
+        global?: number;
+    };
+    permissions?: {
+        roles: string[];
+    };
+    restrictionData?: {
+        restrictions: Restriction[];
+    };
+    subCommands?: Subcommand[];
+};
+
+export type Subcommand = { arg: string; regex: boolean } & Omit<
+    Partial<Command>,
+    "subCommands" | "trigger"
+>;
+
 export interface ProfileData {
     owner: string;
     chatter: string;
@@ -16,17 +44,24 @@ export interface ProfileData {
                 roles: string[];
             };
             restrictionData?: {
-                restrictions: Array<{
-                    type: RestrictionType;
-                    mode?: "roles" | "viewer";
-                    roleIds?: string[];
-                    username?: string;
-                }>;
+                restrictions: Restriction[];
             };
             subCommands?: Array<{
                 arg: string;
                 description: string;
                 usage: string;
+                regex: boolean;
+                active: boolean;
+                restrictionData?: {
+                    restrictions: Restriction[];
+                };
+                cooldown: {
+                    user?: number;
+                    global?: number;
+                };
+                permissions?: {
+                    roles: string[];
+                };
             }>;
         }>;
     };

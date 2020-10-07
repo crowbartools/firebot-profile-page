@@ -108,15 +108,23 @@ class ProfileStore {
             this.profileData = profileData;
             this.profileData.quotes.quotes = toJS(this.profileData.quotes.quotes).reverse();
             this.profileData.commands.allowedCmds.map((c) => {
-                if (
-                    c.restrictionData?.restrictions?.some((r) => r.type === "firebot:permissions")
-                ) {
-                    const permissionsRestriction = c.restrictionData.restrictions.find(
-                        (r) => r.type === "firebot:permissions"
-                    );
-                    if (permissionsRestriction.roleIds?.length > 0) {
-                        c.permissions = { roles: getMappedRoles(permissionsRestriction.roleIds) };
-                    }
+                const permissionsRestriction = c.restrictionData?.restrictions?.find(
+                    (r) => r.type === "firebot:permissions"
+                );
+                if (permissionsRestriction?.roleIds?.length > 0) {
+                    c.permissions = { roles: getMappedRoles(permissionsRestriction.roleIds) };
+                }
+                if (c.subCommands?.length > 0) {
+                    c.subCommands = c.subCommands?.filter((f) => f.active);
+                    c.subCommands?.map((sc) => {
+                        const scPermRestriction = sc.restrictionData?.restrictions?.find(
+                            (r) => r.type === "firebot:permissions"
+                        );
+                        if (scPermRestriction?.roleIds?.length > 0) {
+                            sc.permissions = { roles: getMappedRoles(scPermRestriction.roleIds) };
+                        }
+                        return sc;
+                    });
                 }
                 return c;
             });

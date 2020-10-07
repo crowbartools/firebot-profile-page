@@ -1,6 +1,13 @@
+import clsx from "clsx";
 import React from "react";
-export const ClockIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+export const ClockIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg
+        className={clsx("w-4 h-4", className)}
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+    >
         <path
             strokeLinecap="round"
             strokeLinejoin="round"
