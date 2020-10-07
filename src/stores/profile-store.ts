@@ -128,6 +128,9 @@ class ProfileStore {
                 }
                 return c;
             });
+            if (this.profileData.profilePage === "quotes") {
+                this.activeTabIndex = 1;
+            }
         } else {
             this.unableToLoad = true;
         }

@@ -31,7 +31,7 @@ export type Subcommand = { arg: string; regex: boolean } & Omit<
 export interface ProfileData {
     owner: string;
     chatter: string;
-    profilePage: string;
+    profilePage: "commands" | "quotes";
     commands: {
         allowedCmds: Array<{
             trigger: string;
