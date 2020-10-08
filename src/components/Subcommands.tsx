@@ -36,7 +36,7 @@ export const Subcommands: React.FC<{ command: ProfileData["commands"]["allowedCm
         command.subCommands?.length > 0 && (
             <div className="mt-2">
                 <a
-                    className="cursor-pointer text-sm hover:text-opacity-25 inline-flex items-center"
+                    className="cursor-pointer text-sm inline-flex items-center hover:text-gray-200"
                     onClick={toggleOpen}
                 >
                     Subcommands {!open ? <ChevronRightIcon /> : <ChevronDownIcon />}

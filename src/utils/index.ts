@@ -33,23 +33,47 @@ export async function getChannelInfo(channelName: string): Promise<ChannelInfo> 
     return null;
 }
 
-type FirebotRole = "ChannelEditor" | "mod" | "Mod" | "sub" | "vip";
+type FirebotRole =
+    | "ChannelEditor"
+    | "mod"
+    | "Mod"
+    | "sub"
+    | "vip"
+    | "broadcaster"
+    | "Streamer"
+    | "Owner";
 
-const knownRoles: Array<FirebotRole | string> = ["ChannelEditor", "mod", "Mod", "sub", "vip"];
+const knownRoles: Array<FirebotRole | string> = [
+    "ChannelEditor",
+    "mod",
+    "Mod",
+    "sub",
+    "vip",
+    "broadcaster",
+    "Streamer",
+    "Owner",
+];
 
 export default function getMappedRoles(roleIds: string[]) {
-    return roleIds
-        .filter((r) => knownRoles.includes(r))
-        .map((r) => {
-            switch (r as FirebotRole) {
-                case "ChannelEditor":
-                case "Mod":
-                case "mod":
-                    return "Mods";
-                case "sub":
-                    return "Subs";
-                case "vip":
-                    return "VIPs";
-            }
-        });
+    return [
+        ...new Set(
+            roleIds
+                .filter((r) => knownRoles.includes(r))
+                .map((r) => {
+                    switch (r as FirebotRole) {
+                        case "broadcaster":
+                        case "Streamer":
+                        case "Owner":
+                        case "ChannelEditor":
+                        case "Mod":
+                        case "mod":
+                            return "Mods";
+                        case "sub":
+                            return "Subs";
+                        case "vip":
+                            return "VIPs";
+                    }
+                })
+        ),
+    ];
 }
