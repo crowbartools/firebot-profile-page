@@ -116,6 +116,9 @@ class ProfileStore {
                 }
                 if (c.subCommands?.length > 0) {
                     c.subCommands = c.subCommands?.filter((f) => f.active);
+                    if (c.fallbackSubcommand) {
+                        c.subCommands.push(c.fallbackSubcommand);
+                    }
                     c.subCommands?.map((sc) => {
                         const scPermRestriction = sc.restrictionData?.restrictions?.find(
                             (r) => r.type === "firebot:permissions"

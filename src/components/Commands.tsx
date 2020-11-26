@@ -26,7 +26,11 @@ export const Commands = () => {
                                 <CopyButton tooltipText="Copy command" copyText={c.trigger} />
                                 <div className="font-light text-gray-200 text-sm block md:inline">
                                     <span className="hidden lg:inline-block mx-2">&#8212;</span>
-                                    <span>{c.description ?? "No description."}</span>
+                                    <span>
+                                        {c.baseCommandDescription
+                                            ? c.baseCommandDescription
+                                            : c.description ?? "No description."}
+                                    </span>
                                 </div>
                             </div>
                             <CooldownsAndPermissions

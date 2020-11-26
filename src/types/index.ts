@@ -8,8 +8,11 @@ export type Restriction = {
 };
 
 export type Command = {
+    active: boolean;
     trigger: string;
     description?: string;
+    usage?: string;
+    baseCommandDescription?: string;
     cooldown: {
         user?: number;
         global?: number;
@@ -21,11 +24,12 @@ export type Command = {
         restrictions: Restriction[];
     };
     subCommands?: Subcommand[];
+    fallbackSubcommand?: Subcommand;
 };
 
 export type Subcommand = { arg: string; regex: boolean } & Omit<
     Partial<Command>,
-    "subCommands" | "trigger"
+    "subCommands" | "trigger" | "fallbackSubcommand"
 >;
 
 export interface ProfileData {
@@ -33,37 +37,7 @@ export interface ProfileData {
     chatter: string;
     profilePage: "commands" | "quotes";
     commands: {
-        allowedCmds: Array<{
-            trigger: string;
-            description?: string;
-            cooldown: {
-                user?: number;
-                global?: number;
-            };
-            permissions?: {
-                roles: string[];
-            };
-            restrictionData?: {
-                restrictions: Restriction[];
-            };
-            subCommands?: Array<{
-                arg: string;
-                description: string;
-                usage: string;
-                regex: boolean;
-                active: boolean;
-                restrictionData?: {
-                    restrictions: Restriction[];
-                };
-                cooldown: {
-                    user?: number;
-                    global?: number;
-                };
-                permissions?: {
-                    roles: string[];
-                };
-            }>;
-        }>;
+        allowedCmds: Command[];
     };
     quotes: {
         quotes: Array<{

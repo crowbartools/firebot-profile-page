@@ -64,7 +64,9 @@ export const Subcommands: React.FC<{ command: ProfileData["commands"]["allowedCm
                                     initial={variantType.hidden}
                                     animate={variantType.visible}
                                 >
-                                    <span className="text-base">{`${command.trigger} ${sc.usage}`}</span>
+                                    <span className="text-base">{`${command.trigger} ${
+                                        sc.usage?.length > 0 ? sc.usage : sc.arg
+                                    }`}</span>
                                     <CopyButton
                                         tooltipText="Copy subcommand"
                                         copyText={`${command.trigger} ${
