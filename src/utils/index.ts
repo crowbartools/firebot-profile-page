@@ -1,4 +1,6 @@
 import axios from "axios";
+import xlsx from "xlsx";
+import fileDownload from "js-file-download";
 import { ChannelInfo, ProfileData } from "../types";
 
 export async function getProfileData(): Promise<ProfileData> {
@@ -76,4 +78,10 @@ export default function getMappedRoles(roleIds: string[]) {
                 })
         ),
     ];
+}
+
+export function downloadDataAsCsv(data: Array<unknown[]>, channelName: string) {
+    const sheet = xlsx.utils.aoa_to_sheet(data);
+    const csv = xlsx.utils.sheet_to_csv(sheet);
+    fileDownload(csv, `${channelName}-quotes.csv`);
 }

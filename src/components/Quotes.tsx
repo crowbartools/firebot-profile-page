@@ -5,13 +5,30 @@ import React from "react";
 import { useStores } from "../stores";
 import { CopyButton } from "./CopyButton";
 import { Pagination } from "./Pagination";
-import { Tooltip } from "./Tooltip";
+import { downloadDataAsCsv } from "../utils";
+import { DownloadIcon } from "./icons/Download";
 
 export const Quotes = () => {
     const { profileStore, toastStore } = useStores();
+
+    const downloadQuotesCsv = () => {
+        const quotes = profileStore.profileData.quotes.quotes.map((quote) => [
+            quote._id,
+            quote.text,
+            quote.originator,
+            quote.creator,
+            moment(quote.createdAt).format("MM/DD/YYYY"),
+            quote.game,
+        ]);
+        downloadDataAsCsv(
+            [["ID", "Text", "Author", "Creator", "Date", "Game"], ...quotes],
+            profileStore.channelInfo.username
+        );
+    };
+
     return useObserver(() => (
         <>
-            <div className="bg-gray-500 rounded-md overflow-hidden mt-2 mb-16 md:mb-9">
+            <div className="bg-gray-500 rounded-md overflow-hidden mt-2">
                 {profileStore.profileData &&
                     profileStore.currentQuotes.map((q, i) => (
                         <div
@@ -39,6 +56,11 @@ export const Quotes = () => {
                             </div>
                         </div>
                     ))}
+            </div>
+            <div className="my-8 md:my-4 text-sm flex justify-end">
+                <button className="text-blue-500 hover:text-blue-300" onClick={downloadQuotesCsv}>
+                    <DownloadIcon /> Download as .CSV
+                </button>
             </div>
             <div
                 className="fixed flex items-center justify-center mb-8 md:mb-5 shadow-xl"

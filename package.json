@@ -17,6 +17,7 @@
         "axios": "^0.20.0",
         "clsx": "^1.1.1",
         "framer-motion": "^2.7.7",
+        "js-file-download": "^0.4.12",
         "mobx": "^5.15.7",
         "mobx-react": "^6.3.0",
         "moment": "^2.29.0",
@@ -24,7 +25,8 @@
         "react-dom": "^16.13.1",
         "react-use": "^15.3.4",
         "tailwindcss": "^1.8.10",
-        "uuid": "^8.3.1"
+        "uuid": "^8.3.1",
+        "xlsx": "^0.16.9"
     },
     "devDependencies": {
         "@types/react": "^16.9.49",
